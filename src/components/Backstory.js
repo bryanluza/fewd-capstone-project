@@ -5,7 +5,7 @@ import { VStack, Heading, Text, Image, Box, Flex } from "@chakra-ui/react";
 
 const Backstory = () => {
     return (
-        <Box padding={4}>
+        <Box padding={4} as="section" id='backstory-section'>
             <Text as="h2" align={{base : "center", md : "left"}} >Our Story</Text>
             <Flex
             direction={{ base: "column", md: "row" }}
@@ -35,9 +35,9 @@ const Backstory = () => {
                         </Text>
                     </VStack>
                 </Box>
-                <Box 
+                <Box
                     position="relative"
-                    width="300px" 
+                    width="300px"
                     height="200px"
                 >
                     <Image
