@@ -39,7 +39,7 @@ const Specials = () => {
             gap={4}
             paddingX={4}
           >
-            <h2>This week's specials!</h2>
+            <h2 paddingX={4}>This week's specials!</h2>
             <Link to="/menu">
               <Button
                       bg="#F4CE14"
