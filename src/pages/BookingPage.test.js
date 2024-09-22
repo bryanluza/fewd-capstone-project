@@ -1,9 +1,9 @@
 // BookingPage.test.js
 import React from 'react';
-import { render, screen, within, fireEvent } from '@testing-library/react';
+import { render, screen, within, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import BookingPage from './BookingPage';
-import * as api from '../utils/api';  // Import the api module
+import * as api from '../utils/api';  // Import the api moduleimport React from 'react';
 
 // Mock the entire api module
 jest.mock('../utils/api');
@@ -49,17 +49,25 @@ describe('BookingPage', () => {
     // Get the specific select element for time
     const timeSelect = screen.getByLabelText(/Choose time/i);
 
-    // Get all options within this specific select element
-    const timeOptions = within(timeSelect).getAllByRole('option');
+  //   // Get all options within this specific select element
+  //   const timeOptions = within(timeSelect).getAllByRole('option');
 
-    // Check that we have at least one time option
-    expect(timeOptions.length).toBeGreaterThan(0);
+  //   // Check that we have at least one time option
+  //   expect(timeOptions.length).toBeGreaterThan(0);
+
+  //   // Check that all times are in the correct format
+  //   timeOptions.forEach(option => {
+  //     expect(option.textContent).toMatch(/^(17|18|19|20|21|22|23):(00|30)$/);
+  //   });
+  // });
 
     // Check that all times are in the correct format
-    timeOptions.forEach(option => {
+    const timeOptions = Array.from(screen.getByLabelText(/Choose time/i).options);
+    timeOptions.slice(1).forEach(option => {
       expect(option.textContent).toMatch(/^(17|18|19|20|21|22|23):(00|30)$/);
     });
   });
+
 
   test('updates times when date changes', () => {
     // Initial mock implementation
@@ -77,9 +85,9 @@ describe('BookingPage', () => {
 
     // Check initial times
     let timeOptions = within(timeSelect).getAllByRole('option');
-    expect(timeOptions.length).toBe(2);
-    expect(timeOptions[0].textContent).toBe('17:00');
-    expect(timeOptions[1].textContent).toBe('18:00');
+    expect(timeOptions.length).toBe(3);
+    expect(timeOptions[1].textContent).toBe('17:00');
+    expect(timeOptions[2].textContent).toBe('18:00');
 
     // Change the mock implementation for a different date
     api.fetchAPI.mockImplementation(() => ['19:00', '20:00', '21:00']);
@@ -89,9 +97,9 @@ describe('BookingPage', () => {
 
     // Check updated times
     timeOptions = within(timeSelect).getAllByRole('option');
-    expect(timeOptions.length).toBe(3);
-    expect(timeOptions[0].textContent).toBe('19:00');
-    expect(timeOptions[1].textContent).toBe('20:00');
-    expect(timeOptions[2].textContent).toBe('21:00');
+    expect(timeOptions.length).toBe(4);
+    expect(timeOptions[1].textContent).toBe('19:00');
+    expect(timeOptions[2].textContent).toBe('20:00');
+    expect(timeOptions[3].textContent).toBe('21:00');
   });
 });

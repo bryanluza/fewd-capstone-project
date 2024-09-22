@@ -3,6 +3,7 @@ import React, { useReducer, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchAPI, submitAPI } from '../utils/api';
 import BookingForm from '../components/BookingForm';
+import { Box } from '@chakra-ui/react';
 
 // This function will initialize the available times
 const initializeTimes = () => {
@@ -40,14 +41,18 @@ const BookingPage = () => {
   };
 
   return (
-    <div>
-      <h1>Book a Table</h1>
-      <BookingForm 
-        availableTimes={availableTimes} 
+    <Box
+      as='section'
+      id='booking-form'
+      padding={4}
+    >
+      <h2>Book a Table</h2>
+      <BookingForm
+        availableTimes={availableTimes}
         updateTimes={updateTimes}
         submitForm={submitForm}
       />
-    </div>
+    </Box>
   );
 };
 
